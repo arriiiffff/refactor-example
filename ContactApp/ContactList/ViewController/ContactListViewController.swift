@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class ContactListViewController: UIViewController {
     private let tableView: UITableView = {
@@ -19,27 +21,17 @@ class ContactListViewController: UIViewController {
         return tv
     }()
     
-    private let jsonDecoder: JSONDecoder = {
-        let decoder = JSONDecoder()
-        decoder.keyDecodingStrategy = .convertFromSnakeCase
-        
-        return decoder
-    }()
-    
-    private let viewModel = ContactListViewModel()
+    private let viewModel = ReactiveContactListViewModel()
+    let disposeBag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupView()
         self.setupViewModel()
-        self.fetchContacts()
     }
     
     private func setupView() {
         title = "Contact List"
-        
-        tableView.delegate = viewModel
-        tableView.dataSource = viewModel
         
         view.addSubview(tableView)
         NSLayoutConstraint.activate([
@@ -53,22 +45,15 @@ class ContactListViewController: UIViewController {
     }
     
     private func setupViewModel() {
-        viewModel.onContactSelectedByID = { id in
-            print(id) // todo: handle
-        }
+        // MARK: Input
+        let input = ReactiveContactListViewModel.Input(didLoadTrigger: .just(()))
         
-        viewModel.onDataRefreshed = { [tableView] in
-            DispatchQueue.main.async {
-                tableView.reloadData()
-            }
-        }
+        let output = viewModel.transform(input: input)
         
-        viewModel.onError = { error in
-            print(error) // todo: handle
-        }
-    }
-    
-    private func fetchContacts() {
-        viewModel.fetchContactList()
+        output.contactListCellData
+            .drive(tableView.rx.items(cellIdentifier: ContactListTableViewCell.reuseIdentifier, cellType: ContactListTableViewCell.self)) {
+                row, model, cell in
+                cell.configureCell(with: model)
+        }.disposed(by: disposeBag)
     }
 }

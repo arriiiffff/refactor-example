@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0135DF7FF35636A5012237F7 /* Pods_ContactApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F2F7C727E94BAF9A7F9858D /* Pods_ContactApp.framework */; };
+		429C3BF423744B17002701DC /* ReactiveContactListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429C3BF323744B17002701DC /* ReactiveContactListViewModel.swift */; };
 		E5092CE7235D7D7000E4C655 /* ViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5092CE6235D7D7000E4C655 /* ViewModelType.swift */; };
 		E5542014233C620100214B66 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5542013233C620100214B66 /* AppDelegate.swift */; };
 		E5542016233C620100214B66 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5542015233C620100214B66 /* SceneDelegate.swift */; };
@@ -21,6 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		429C3BF323744B17002701DC /* ReactiveContactListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactiveContactListViewModel.swift; sourceTree = "<group>"; };
 		4F2F7C727E94BAF9A7F9858D /* Pods_ContactApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ContactApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C96117D9E9CAA978F66ACF91 /* Pods-ContactApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ContactApp.debug.xcconfig"; path = "Target Support Files/Pods-ContactApp/Pods-ContactApp.debug.xcconfig"; sourceTree = "<group>"; };
 		E5092CE6235D7D7000E4C655 /* ViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelType.swift; sourceTree = "<group>"; };
@@ -171,6 +173,7 @@
 			isa = PBXGroup;
 			children = (
 				E5F94B2C2343021800B3035C /* ContactListViewModel.swift */,
+				429C3BF323744B17002701DC /* ReactiveContactListViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -290,6 +293,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E554202D233C642600214B66 /* Contact.swift in Sources */,
+				429C3BF423744B17002701DC /* ReactiveContactListViewModel.swift in Sources */,
 				E5542033233C647600214B66 /* ContactListTableViewCell.swift in Sources */,
 				E5F94B2A2343005900B3035C /* ContactService.swift in Sources */,
 				E5542030233C646100214B66 /* ContactListViewController.swift in Sources */,
