@@ -21,6 +21,8 @@ class ContactListViewController: UIViewController {
         return tv
     }()
     
+    let refreshControl = UIRefreshControl()
+    
     private let viewModel = ReactiveContactListViewModel()
     let disposeBag = DisposeBag()
     
@@ -42,11 +44,12 @@ class ContactListViewController: UIViewController {
         ])
         
         view.backgroundColor = .white
+        tableView.refreshControl = refreshControl
     }
     
     private func setupViewModel() {
         // MARK: Input
-        let input = ReactiveContactListViewModel.Input(didLoadTrigger: .just(()))
+        let input = ReactiveContactListViewModel.Input(didLoadTrigger: .just(()), didTapCellTrigger: tableView.rx.itemSelected.asDriver(), pullToRefreshTrigger: refreshControl.rx.controlEvent(.allEvents).asDriver())
         
         let output = viewModel.transform(input: input)
         
@@ -55,5 +58,19 @@ class ContactListViewController: UIViewController {
                 row, model, cell in
                 cell.configureCell(with: model)
         }.disposed(by: disposeBag)
+        
+        output.errorData
+            .drive(onNext: { errorMessage in
+                print("error")
+            }).disposed(by: disposeBag)
+        
+        output.selectedIndex.drive(onNext: { (index, model) in
+            print("ini index \(index), model: \(model)")
+            }).disposed(by: disposeBag)
+        
+        output
+            .isLoading
+            .drive(refreshControl.rx.isRefreshing)
+        .disposed(by: disposeBag)
     }
 }
