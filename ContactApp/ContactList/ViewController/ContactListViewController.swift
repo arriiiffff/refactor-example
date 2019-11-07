@@ -66,11 +66,11 @@ class ContactListViewController: UIViewController {
         
         output.selectedIndex.drive(onNext: { (index, model) in
             print("ini index \(index), model: \(model)")
-            }).disposed(by: disposeBag)
+        }).disposed(by: disposeBag)
         
         output
             .isLoading
             .drive(refreshControl.rx.isRefreshing)
-        .disposed(by: disposeBag)
+            .disposed(by: disposeBag)
     }
 }
